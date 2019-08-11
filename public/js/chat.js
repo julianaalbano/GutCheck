@@ -67,6 +67,8 @@ socket.on('connect', function() {
         .replace(/=/g, '":"') +
       '"}'
   )
+  let title = document.querySelector('#name-of-room')
+  title.innerHTML = params.room
 
   socket.emit('join', params, function(err) {
     if (err) {
@@ -162,3 +164,10 @@ document.querySelector('#clear').addEventListener('click', function(event) {
   event.preventDefault()
   socket.emit('clear', 'nada')
 })
+
+document
+  .querySelector('#back-to-home')
+  .addEventListener('click', function(event) {
+    event.preventDefault()
+    window.location.href = '/'
+  })
