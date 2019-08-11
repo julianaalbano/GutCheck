@@ -1,5 +1,62 @@
 let socket = io()
 
+let updateChart
+
+window.onload = function() {
+  let options = {
+    data: [
+      {
+        type: 'column',
+        yValueFormatString: '#,###',
+        indexLabel: '{y}',
+        color: '#546BC1',
+        dataPoints: [
+          {label: 'good', y: 0},
+          {label: 'okay', y: 0},
+          {label: 'confused', y: 0}
+        ]
+      }
+    ]
+  }
+  $('#chartContainer').CanvasJSChart(options)
+
+  updateChart = label => {
+    let dps = options.data[0].dataPoints
+
+    if (label === 'clear') {
+      for (let i = 0; i < dps.length; i++) {
+        dps[i].y = 0
+      }
+    }
+    if (label === 'good') {
+      for (let i = 0; i < dps.length; i++) {
+        if (dps[i].label === 'good') {
+          dps[i].y = dps[i].y + 1
+        }
+      }
+    }
+    if (label === 'okay') {
+      for (let i = 0; i < dps.length; i++) {
+        if (dps[i].label === 'okay') {
+          dps[i].y = dps[i].y + 1
+        }
+      }
+    }
+    if (label === 'confused') {
+      for (let i = 0; i < dps.length; i++) {
+        if (dps[i].label === 'confused') {
+          dps[i].y = dps[i].y + 1
+        }
+      }
+    }
+    options.data[0].dataPoints = dps
+
+    $('#chartContainer')
+      .CanvasJSChart()
+      .render()
+  }
+}
+
 socket.on('connect', function() {
   let searchQuery = window.location.search.substring(1)
   let params = JSON.parse(
@@ -51,39 +108,19 @@ socket.on('newMessage', function(message) {
 
 socket.on('updatedFeeling', function(message) {
   if (message === 'okay') {
-    const tr = document.createElement('tr')
-    tr.innerHTML = '😐'
-    tr.style.backgroundColor = 'yellow'
-    document.querySelector('#okay-table').appendChild(tr)
+    updateChart(message)
   }
   if (message === 'confused') {
-    const tr = document.createElement('tr')
-    tr.innerHTML = '😩'
-    tr.style.backgroundColor = 'red'
-    document.querySelector('#confused-table').appendChild(tr)
+    updateChart(message)
   }
   if (message === 'good') {
-    const tr = document.createElement('tr')
-    tr.innerHTML = '😀'
-    tr.style.backgroundColor = 'green'
-    document.querySelector('#good-table').appendChild(tr)
+    updateChart(message)
   }
 })
 
 socket.on('clearing', user => {
   if (user.name === 'Admin' || user.name === 'admin') {
-    const goodTable = document.getElementById('good-table')
-    while (goodTable.childElementCount) {
-      goodTable.removeChild(goodTable.childNodes[0])
-    }
-    const okayTable = document.getElementById('okay-table')
-    while (okayTable.childElementCount) {
-      okayTable.removeChild(okayTable.childNodes[0])
-    }
-    const confusedTable = document.getElementById('confused-table')
-    while (confusedTable.childElementCount) {
-      confusedTable.removeChild(confusedTable.childNodes[0])
-    }
+    updateChart('clear')
   }
 })
 

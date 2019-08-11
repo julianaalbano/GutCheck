@@ -3,29 +3,40 @@
   <head>
     <meta charset="utf-8" />
     <title>GutCheck</title>
-    <link rel="icon" href="./favicon.ico" />
+    <link rel="icon" href="/css/favicon.ico" />
     <link rel="stylesheet" href="/css/styles.css" />
+    <script></script>
   </head>
   <body class="chat">
     <div class="chat__sidebar">
-      <h3>GutCheck</h3>
-      <div id="users"></div>
+      <div>
+        <h3><img src="./css/favicon.ico" id="lilGut" />GutCheck</h3>
+        <div id="users"></div>
+      </div>
+
+      <div>
+        <button type="button" id="clear">Clear</button>
+      </div>
     </div>
 
     <div id="table-btns">
-      <button type="button" id="clear">Clear</button>
-
-      <div id="table-container">
-        <table id="good-table"></table>
-        <table id="okay-table"></table>
-        <table id="confused-table"></table>
-      </div>
+      <div id="chartContainer"></div>
 
       <div id="feeling-btns">
-        <button type="submit" name="good" id="good-btn">😀</button>
-        <button type="submit" name="okay" id="okay-btn">😐</button>
+        <button type="submit" name="good" id="good-btn">
+          <img
+            src="https://cdn.shopify.com/s/files/1/1061/1924/products/Happy_Emoji_Icon_5c9b7b25-b215-4457-922d-fef519a08b06_large.png?v=1542446801"
+          />
+        </button>
+        <button type="submit" name="okay" id="okay-btn">
+          <img
+            src="https://cdn.shopify.com/s/files/1/1061/1924/products/Neutral_Emoji_icon_9f1cc93a-f984-4b6c-896e-d24a643e4c28_large.png?v=1542436027"
+          />
+        </button>
         <button type="submit" name="confused" id="confused-btn">
-          😩
+          <img
+            src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/48/weary-face_1f629.png"
+          />
         </button>
       </div>
     </div>
@@ -52,9 +63,10 @@
         </div>
       </li>
     </script>
-
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/js/chat.js"></script>
     <script type="text/javascript" src="/js/libs/moment.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
   </body>
 </html>

@@ -36,9 +36,9 @@ io.on('connection', socket => {
       generateMessage('Admin', `Welcome to ${params.room}!`)
     )
 
-    socket.broadcast
-      .to(params.room)
-      .emit('newMessage', generateMessage('Admin', 'New User Joined!'))
+    // socket.broadcast
+    //   .to(params.room)
+    //   .emit('newMessage', generateMessage('Admin', 'New User Joined!'))
 
     callback()
   })
@@ -70,13 +70,6 @@ io.on('connection', socket => {
 
     if (user) {
       io.to(user.room).emit('updateUsersList', users.getUserList(user.room))
-      io.to(user.room).emit(
-        'newMessage',
-        generateMessage(
-          'Admin',
-          `${user.name} has left ${user.room} chat room.`
-        )
-      )
     }
   })
 })

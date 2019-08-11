@@ -104,6 +104,10 @@ button:disabled {
   display: flex;
 }
 .chat__sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   overflow-y: scroll;
   min-width: 180px;
   height: 100vh;
@@ -162,10 +166,14 @@ button:disabled {
   width: 100%;
 }
 .chat__messages {
+  background-color: #e6eaee;
   flex-grow: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   padding: 10px;
+}
+img {
+  max-width: 100px;
 }
 .chat__footer {
   display: flex;
@@ -226,6 +234,11 @@ table {
   width: 200%;
 }
 
+#lilGut {
+  width: 23px;
+  margin: 0 5px 0 0;
+}
+
 #table-container {
   display: flex;
   flex-direction: column;
@@ -243,4 +256,11 @@ table {
 
 #feeling-btns button {
   min-width: 120px;
+  border-radius: 25%;
+  margin: 0 0 10px 0;
+}
+
+#chartContainer {
+  height: 350px;
+  /* style="height: 370px; max-width: 920px; margin: 0px auto;" */
 }
