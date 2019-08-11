@@ -71,7 +71,7 @@ socket.on('updatedFeeling', function(message) {
 })
 
 socket.on('clearing', user => {
-  if (user.name === 'admin') {
+  if (user.name === 'Admin' || user.name === 'admin') {
     const goodTable = document.getElementById('good-table')
     while (goodTable.childElementCount) {
       goodTable.removeChild(goodTable.childNodes[0])

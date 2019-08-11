@@ -3,6 +3,7 @@ const http = require('http')
 const express = require('express')
 const socketIO = require('socket.io')
 const moment = require('moment')
+const jquery = require('jquery')
 
 const {generateMessage} = require('./utils/message')
 const {isRealString} = require('./utils/isRealString')
