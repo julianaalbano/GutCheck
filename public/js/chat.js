@@ -9,7 +9,7 @@ window.onload = function() {
         type: 'column',
         yValueFormatString: '#,###',
         indexLabel: '{y}',
-        color: '#546BC1',
+        color: '#faa275',
         dataPoints: [
           {label: 'good', y: 0},
           {label: 'okay', y: 0},
@@ -68,7 +68,7 @@ socket.on('connect', function() {
       '"}'
   )
   let title = document.querySelector('#name-of-room')
-  title.innerHTML = params.room
+  title.innerHTML = `Room: ${params.room}`
 
   socket.emit('join', params, function(err) {
     if (err) {
