@@ -54,6 +54,16 @@ io.on('connection', socket => {
     callback('This is the server:')
   })
 
+  socket.on('newFeeling', message => {
+    let user = users.getUser(socket.id)
+    io.to(user.room).emit('updatedFeeling', message)
+  })
+
+  socket.on('clear', () => {
+    let user = users.getUser(socket.id)
+    io.to(user.room).emit('clearing', user)
+  })
+
   socket.on('disconnect', () => {
     let user = users.removeUser(socket.id)
 

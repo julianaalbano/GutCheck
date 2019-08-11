@@ -12,15 +12,27 @@
       <div id="users"></div>
     </div>
 
-    <div class="chat__main">
-      <ol id="messages" class="chat__messages"></ol>
-      <div>
-        <button type="submit" name="good" id="good-btn">GOOD</button>
-        <button type="submit" name="okay" id="okay-btn">OKAY</button>
+    <div id="table-btns">
+      <button type="button" id="clear">Clear</button>
+
+      <div id="table-container">
+        <table id="good-table"></table>
+        <table id="okay-table"></table>
+        <table id="confused-table"></table>
+      </div>
+
+      <div id="feeling-btns">
+        <button type="submit" name="good" id="good-btn">😀</button>
+        <button type="submit" name="okay" id="okay-btn">😐</button>
         <button type="submit" name="confused" id="confused-btn">
-          CONFUSED
+          😩
         </button>
       </div>
+    </div>
+
+    <div class="chat__main">
+      <ol id="messages" class="chat__messages"></ol>
+
       <div class="chat__footer">
         <form id="message-form">
           <input name="message" type="text" placeholder="Message" />

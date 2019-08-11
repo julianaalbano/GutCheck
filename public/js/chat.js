@@ -49,11 +49,48 @@ socket.on('newMessage', function(message) {
   document.querySelector('#messages').appendChild(p)
 })
 
+socket.on('updatedFeeling', function(message) {
+  if (message === 'okay') {
+    const tr = document.createElement('tr')
+    tr.innerHTML = '😐'
+    tr.style.backgroundColor = 'yellow'
+    document.querySelector('#okay-table').appendChild(tr)
+  }
+  if (message === 'confused') {
+    const tr = document.createElement('tr')
+    tr.innerHTML = '😩'
+    tr.style.backgroundColor = 'red'
+    document.querySelector('#confused-table').appendChild(tr)
+  }
+  if (message === 'good') {
+    const tr = document.createElement('tr')
+    tr.innerHTML = '😀'
+    tr.style.backgroundColor = 'green'
+    document.querySelector('#good-table').appendChild(tr)
+  }
+})
+
+socket.on('clearing', user => {
+  if (user.name === 'admin') {
+    const goodTable = document.getElementById('good-table')
+    while (goodTable.childElementCount) {
+      goodTable.removeChild(goodTable.childNodes[0])
+    }
+    const okayTable = document.getElementById('okay-table')
+    while (okayTable.childElementCount) {
+      okayTable.removeChild(okayTable.childNodes[0])
+    }
+    const confusedTable = document.getElementById('confused-table')
+    while (confusedTable.childElementCount) {
+      confusedTable.removeChild(confusedTable.childNodes[0])
+    }
+  }
+})
+
 document
   .querySelector('#submit-btn')
   .addEventListener('click', function(event) {
     event.preventDefault()
-
     socket.emit(
       'createMessage',
       {
@@ -65,43 +102,26 @@ document
     )
   })
 
-document.querySelector('#good-btn').addEventListener('click', function(event) {
-  event.preventDefault()
-  socket.emit(
-    'createMessage',
-    {
-      text: 'feels GOOD'
-    },
-    function() {
-      'feedback submitted'
-    }
-  )
-})
+document
+  .querySelector('#good-btn')
+  .addEventListener('click', async function(event) {
+    event.preventDefault()
+    socket.emit('newFeeling', 'good')
+  })
 
 document.querySelector('#okay-btn').addEventListener('click', function(event) {
   event.preventDefault()
-  socket.emit(
-    'createMessage',
-    {
-      text: 'feels OKAY'
-    },
-    function() {
-      'feedback submitted'
-    }
-  )
+  socket.emit('newFeeling', 'okay')
 })
 
 document
   .querySelector('#confused-btn')
   .addEventListener('click', function(event) {
     event.preventDefault()
-    socket.emit(
-      'createMessage',
-      {
-        text: 'feels CONFUSED'
-      },
-      function() {
-        'feedback submitted'
-      }
-    )
+    socket.emit('newFeeling', 'confused')
   })
+
+document.querySelector('#clear').addEventListener('click', function(event) {
+  event.preventDefault()
+  socket.emit('clear', 'nada')
+})
