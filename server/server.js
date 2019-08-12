@@ -4,10 +4,7 @@ const express = require('express')
 const socketIO = require('socket.io')
 const moment = require('moment')
 const jquery = require('jquery')
-
-const {generateMessage} = require('./utils/message')
-const {isRealString} = require('./utils/isRealString')
-const {Users} = require('./utils/users')
+const {Users} = require('./users')
 
 const publicPath = path.join(__dirname, '/../public')
 const port = process.env.PORT || 3000
@@ -18,11 +15,23 @@ let users = new Users()
 
 app.use(express.static(publicPath))
 
+let isAString = str => {
+  return typeof str === 'string' && str.trim().length > 0
+}
+
+let generateMessage = (from, text) => {
+  return {
+    from,
+    text,
+    createdAt: moment().valueOf()
+  }
+}
+
 io.on('connection', socket => {
   console.log('A new user just connected')
 
   socket.on('join', (params, callback) => {
-    if (!isRealString(params.name) || !isRealString(params.room)) {
+    if (!isAString(params.name) || !isAString(params.room)) {
       return callback('Name and room are required')
     }
 
@@ -35,18 +44,13 @@ io.on('connection', socket => {
       'newMessage',
       generateMessage('Admin', `Welcome to ${params.room}!`)
     )
-
-    // socket.broadcast
-    //   .to(params.room)
-    //   .emit('newMessage', generateMessage('Admin', 'New User Joined!'))
-
     callback()
   })
 
   socket.on('createMessage', (message, callback) => {
     let user = users.getUser(socket.id)
 
-    if (user && isRealString(message.text)) {
+    if (user && isAString(message.text)) {
       io.to(user.room).emit(
         'newMessage',
         generateMessage(user.name, message.text)

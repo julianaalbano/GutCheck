@@ -59,6 +59,14 @@ button:hover {
   border: 1px solid #e1e1e1;
   padding: 10px;
   border-radius: 5px;
+  width: 280px;
+}
+#marginbelow {
+  margin: 0 0 40px 0;
+  font-size: 21pt;
+}
+.form-field button {
+  margin: 0 80px 0 80px;
 }
 .chat {
   display: flex;
@@ -152,6 +160,11 @@ img {
   .chat__footer button {
     margin-right: 0;
   }
+}
+
+#joinbutton {
+  background-color: #437c90;
+  width: 100px;
 }
 
 #table-btns {
